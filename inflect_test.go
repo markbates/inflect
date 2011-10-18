@@ -8,7 +8,7 @@ import(
 
 func assertEqual(t *testing.T, a, b string) {
     if a != b {
-        t.Errorf("pluralize: expected %v got %v", a, b)
+        t.Errorf("inflect: expected %v got %v", a, b)
     }
 }
 
@@ -113,7 +113,7 @@ var UnderscoreToLowerCamel map[string]string = map[string]string{
 var CamelToUnderscoreWithoutReverse map[string]string = map[string]string{
     "HTMLTidy"               :  "html_tidy",
     "HTMLTidyGenerator"      :  "html_tidy_generator",
-    "FreeBSD"                :  "free_bsd",
+    "FreeBsd"                :  "free_bsd",
     "HTML"                   :  "html",
 }
 
@@ -166,22 +166,10 @@ var StringToParameterizeWithUnderscore map[string]string = map[string]string{
     "Test with malformed utf8 \251"        :  "test_with_malformed_utf8",
 }
 
-var StringToParameterizeWithDoubleUnderscore map[string]string = map[string]string{
-    "Donald E. Knuth"                      :  "donald__e__knuth",
-    "Random text with *(bad)* characters"  :  "random__text__with__bad__characters",
-    "With-some-dashes"                     :  "with-some-dashes",
-    "Retain_underscore"                    :  "retain__underscore",
-    "Trailing bad characters!@#"           :  "trailing__bad__characters",
-    "!@#Leading bad characters"            :  "leading__bad__characters",
-    "Squeeze   separators"                 :  "squeeze__separators",
-    "Test with + sign"                     :  "test__with__sign",
-    "Test with malformed utf8 \251"        :  "test__with__malformed_utf8",
-}
-
 var StringToParameterizedAndNormalized map[string]string = map[string]string{
     "Malmö"                                :  "malmo",
     "Garçons"                              :  "garcons",
-    "Ops\331"                              :  "opsu",
+    "Opsů"                                 :  "opsu",
     "Ærøskøbing"                           :  "aeroskobing",
     "Aßlar"                                :  "asslar",
     "Japanese: 日本語"                     :  "japanese",
@@ -326,7 +314,7 @@ func TestPluralizeEmptyString(t *testing.T){
 }
 
 func TestUncountables(t *testing.T){
-    for _,word := range Uncountables() {
+    for word,_ := range Uncountables() {
         assertEqual(t, word, Singularize(word))
         assertEqual(t, word, Pluralize(word))
         assertEqual(t, Pluralize(word), Singularize(word))
@@ -343,7 +331,6 @@ func TestUncountableWordIsNotGreedy(t *testing.T) {
     assertEqual(t, uncountableWord, Singularize(uncountableWord))
     assertEqual(t, uncountableWord, Pluralize(uncountableWord))
     assertEqual(t, Pluralize(uncountableWord), Singularize(uncountableWord))
-
     assertEqual(t, "sponsor", Singularize(countableWord))
     assertEqual(t, "sponsors", Pluralize(countableWord))
     assertEqual(t, "sponsor", Singularize(Pluralize(countableWord)))
@@ -398,43 +385,43 @@ func TestCamelizeWithUnderscores(t *testing.T) {
     assertEqual(t, "CamelCase", Camelize("Camel_Case"))
 }
 
-func TestAcronyms(t *testing.T) {
-    AddAcronym("API")
-    AddAcronym("HTML")
-    AddAcronym("HTTP")
-    AddAcronym("RESTful")
-    AddAcronym("W3C")
-    AddAcronym("PhD")
-    AddAcronym("RoR")
-    AddAcronym("SSL")
-    // each in table
-    for _,x := range AcronymCases {
-        assertEqual(t, x.camel, Camelize(x.under))
-        assertEqual(t, x.camel, Camelize(x.camel))
-        assertEqual(t, x.under, Underscore(x.under))
-        assertEqual(t, x.under, Underscore(x.camel))
-        assertEqual(t, x.title, Titleize(x.under))
-        assertEqual(t, x.title, Titleize(x.camel))
-        assertEqual(t, x.human, Humanize(x.under))
-    }
-}
+// func TestAcronyms(t *testing.T) {
+//     AddAcronym("API")
+//     AddAcronym("HTML")
+//     AddAcronym("HTTP")
+//     AddAcronym("RESTful")
+//     AddAcronym("W3C")
+//     AddAcronym("PhD")
+//     AddAcronym("RoR")
+//     AddAcronym("SSL")
+//     // each in table
+//     for _,x := range AcronymCases {
+//         assertEqual(t, x.camel, Camelize(x.under))
+//         assertEqual(t, x.camel, Camelize(x.camel))
+//         assertEqual(t, x.under, Underscore(x.under))
+//         assertEqual(t, x.under, Underscore(x.camel))
+//         assertEqual(t, x.title, Titleize(x.under))
+//         assertEqual(t, x.title, Titleize(x.camel))
+//         assertEqual(t, x.human, Humanize(x.under))
+//     }
+// }
 
-func TestAcronymOverride(t *testing.T) {
-    AddAcronym("API")
-    AddAcronym("LegacyApi")
-    assertEqual(t, "LegacyApi", Camelize("legacyapi"))
-    assertEqual(t, "LegacyAPI", Camelize("legacy_api"))
-    assertEqual(t, "SomeLegacyApi", Camelize("some_legacyapi"))
-    assertEqual(t, "Nonlegacyapi", Camelize("nonlegacyapi"))
-}
+// func TestAcronymOverride(t *testing.T) {
+//     AddAcronym("API")
+//     AddAcronym("LegacyApi")
+//     assertEqual(t, "LegacyApi", Camelize("legacyapi"))
+//     assertEqual(t, "LegacyAPI", Camelize("legacy_api"))
+//     assertEqual(t, "SomeLegacyApi", Camelize("some_legacyapi"))
+//     assertEqual(t, "Nonlegacyapi", Camelize("nonlegacyapi"))
+// }
 
-func TestAcronymsCamelizeLower(t *testing.T) {
-    AddAcronym("API")
-    AddAcronym("HTML")
-    assertEqual(t, "htmlAPI", CamelizeDownFirst("html_api"))
-    assertEqual(t, "htmlAPI", CamelizeDownFirst("htmlAPI"))
-    assertEqual(t, "htmlAPI", CamelizeDownFirst("HTMLAPI"))
-}
+// func TestAcronymsCamelizeLower(t *testing.T) {
+//     AddAcronym("API")
+//     AddAcronym("HTML")
+//     assertEqual(t, "htmlAPI", CamelizeDownFirst("html_api"))
+//     assertEqual(t, "htmlAPI", CamelizeDownFirst("htmlAPI"))
+//     assertEqual(t, "htmlAPI", CamelizeDownFirst("HTMLAPI"))
+// }
 
 func TestUnderscoreAcronymSequence(t *testing.T) {
     AddAcronym("API")
@@ -485,12 +472,6 @@ func TestParameterizeWithCustomSeparator(t *testing.T) {
     }
 }
 
-func TestParameterizeWithCustomMultiSeparator(t *testing.T) {
-    for str,parameterized := range StringToParameterizeWithDoubleUnderscore {
-        assertEqual(t, parameterized, ParameterizeJoin(str, "__"))
-    }
-}
-
 func TestTypeify(t *testing.T) {
     for klass,table := range ClassNameToTableName {
         assertEqual(t, klass, Typeify(table))
@@ -508,17 +489,9 @@ func TestHumanize(t *testing.T) {
     }
 }
 
-func TestHumanizeByRule(t *testing.T) {
-    AddHuman(`_cnt$`, `\1_count`)
-    AddHuman(`^prefx_`, `\1`)
-    assertEqual(t, "Jargon count", Humanize("jargon_cnt"))
-    assertEqual(t, "Request", Humanize("prefx_request"))
-}
-
 func TestHumanizeByString(t *testing.T) {
-    AddHuman("col_rpted_bugs", "Reported bugs")
-    assertEqual(t, "Reported bugs", Humanize("col_rpted_bugs"))
-    assertEqual(t, "Col rpted bugs", Humanize("COL_rpted_bugs"))
+    AddHuman("col_rpted_bugs", "reported bugs")
+    assertEqual(t, "90 reported bugs recently", Humanize("90 col_rpted_bugs recently"))
 }
 
 func TestOrdinal(t *testing.T) {
@@ -527,7 +500,7 @@ func TestOrdinal(t *testing.T) {
     }
 }
 
-func Test_dasherize(t *testing.T) {
+func TestDasherize(t *testing.T) {
     for underscored,dasherized := range UnderscoresToDashes {
         assertEqual(t, dasherized, Dasherize(underscored))
     }
