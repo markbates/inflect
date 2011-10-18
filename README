@@ -1,434 +1,127 @@
-<!--
-	Copyright 2009 The Go Authors. All rights reserved.
-	Use of this source code is governed by a BSD-style
-	license that can be found in the LICENSE file.
--->
+PACKAGE
+
+package inflect
+import "."
 
 
-	<!-- PackageName is printed as title by the top-level template -->
-	
-		<p><code>import "."</code></p>
-	
-	
-	
-		
-			<p>
-			<h4>Package files</h4>
-			<span style="font-size:90%">
-			
-				<a href="/">inflect.go</a>
-			
-			</span>
-			</p>
-		
-	
-	
-	
-	
-		
-			
-			
-			<h2 id="AddAcronym">func <a href="/?s=14951:14979#L503">AddAcronym</a></h2>
-			<p><code>func AddAcronym(word string)</code></p>
-			
-			
-		
-			
-			
-			<h2 id="AddHuman">func <a href="/?s=14757:14798#L495">AddHuman</a></h2>
-			<p><code>func AddHuman(suffix, replacement string)</code></p>
-			
-			
-		
-			
-			
-			<h2 id="AddIrregular">func <a href="/?s=14853:14895#L499">AddIrregular</a></h2>
-			<p><code>func AddIrregular(singular, plural string)</code></p>
-			
-			
-		
-			
-			
-			<h2 id="AddPlural">func <a href="/?s=14557:14599#L487">AddPlural</a></h2>
-			<p><code>func AddPlural(suffix, replacement string)</code></p>
-			
-			
-		
-			
-			
-			<h2 id="AddSingular">func <a href="/?s=14655:14699#L491">AddSingular</a></h2>
-			<p><code>func AddSingular(suffix, replacement string)</code></p>
-			
-			
-		
-			
-			
-			<h2 id="AddUncountable">func <a href="/?s=15021:15053#L507">AddUncountable</a></h2>
-			<p><code>func AddUncountable(word string)</code></p>
-			
-			
-		
-			
-			
-			<h2 id="Asciify">func <a href="/?s=16477:16509#L575">Asciify</a></h2>
-			<p><code>func Asciify(word string) string</code></p>
-			
-			
-		
-			
-			
-			<h2 id="Camelize">func <a href="/?s=15351:15384#L523">Camelize</a></h2>
-			<p><code>func Camelize(word string) string</code></p>
-			
-			
-		
-			
-			
-			<h2 id="CamelizeDownFirst">func <a href="/?s=15431:15473#L527">CamelizeDownFirst</a></h2>
-			<p><code>func CamelizeDownFirst(word string) string</code></p>
-			
-			
-		
-			
-			
-			<h2 id="Capitalize">func <a href="/?s=15267:15302#L519">Capitalize</a></h2>
-			<p><code>func Capitalize(word string) string</code></p>
-			
-			
-		
-			
-			
-			<h2 id="Dasherize">func <a href="/?s=16311:16345#L567">Dasherize</a></h2>
-			<p><code>func Dasherize(word string) string</code></p>
-			
-			
-		
-			
-			
-			<h2 id="ForeignKey">func <a href="/?s=15773:15808#L543">ForeignKey</a></h2>
-			<p><code>func ForeignKey(word string) string</code></p>
-			
-			
-		
-			
-			
-			<h2 id="ForeignKeyCondensed">func <a href="/?s=15857:15901#L547">ForeignKeyCondensed</a></h2>
-			<p><code>func ForeignKeyCondensed(word string) string</code></p>
-			
-			
-		
-			
-			
-			<h2 id="Humanize">func <a href="/?s=15693:15726#L539">Humanize</a></h2>
-			<p><code>func Humanize(word string) string</code></p>
-			
-			
-		
-			
-			
-			<h2 id="Ordinalize">func <a href="/?s=16393:16428#L571">Ordinalize</a></h2>
-			<p><code>func Ordinalize(word string) string</code></p>
-			
-			
-		
-			
-			
-			<h2 id="Parameterize">func <a href="/?s=16039:16076#L555">Parameterize</a></h2>
-			<p><code>func Parameterize(word string) string</code></p>
-			
-			
-		
-			
-			
-			<h2 id="ParameterizeJoin">func <a href="/?s=16127:16173#L559">ParameterizeJoin</a></h2>
-			<p><code>func ParameterizeJoin(word, sep string) string</code></p>
-			
-			
-		
-			
-			
-			<h2 id="Pluralize">func <a href="/?s=15099:15133#L511">Pluralize</a></h2>
-			<p><code>func Pluralize(word string) string</code></p>
-			
-			
-		
-			
-			
-			<h2 id="Singularize">func <a href="/?s=15181:15217#L515">Singularize</a></h2>
-			<p><code>func Singularize(word string) string</code></p>
-			
-			
-		
-			
-			
-			<h2 id="Tableize">func <a href="/?s=15959:15992#L551">Tableize</a></h2>
-			<p><code>func Tableize(word string) string</code></p>
-			
-			
-		
-			
-			
-			<h2 id="Titleize">func <a href="/?s=15529:15562#L531">Titleize</a></h2>
-			<p><code>func Titleize(word string) string</code></p>
-			
-			
-		
-			
-			
-			<h2 id="Typeify">func <a href="/?s=16233:16265#L563">Typeify</a></h2>
-			<p><code>func Typeify(word string) string</code></p>
-			
-			
-		
-			
-			
-			<h2 id="Uncountables">func <a href="/?s=14475:14510#L483">Uncountables</a></h2>
-			<p><code>func Uncountables() map[string]bool</code></p>
-			
-			
-		
-			
-			
-			<h2 id="Underscore">func <a href="/?s=15609:15644#L535">Underscore</a></h2>
-			<p><code>func Underscore(word string) string</code></p>
-			
-			
-		
-	
-	
-		
-			
-			
-			<h2 id="Rule">type <a href="/?s=104:180#L2">Rule</a></h2>
-			
-			<p><pre>type Rule struct {
-    <span class="comment">// contains filtered or unexported fields</span>
-}</pre></p>
-			
-			
-			
-			
-			
-		
-			
-			
-			<h2 id="Ruleset">type <a href="/?s=182:354#L8">Ruleset</a></h2>
-			
-			<p><pre>type Ruleset struct {
-    <span class="comment">// contains filtered or unexported fields</span>
-}</pre></p>
-			
-			
-			
-			
-				
-				<h3 id="NewDefaultRuleset">func <a href="/?s=611:644#L27">NewDefaultRuleset</a></h3>
-				<p><code>func NewDefaultRuleset() *Ruleset</code></p>
-				
-				
-			
-				
-				<h3 id="NewRuleset">func <a href="/?s=356:382#L17">NewRuleset</a></h3>
-				<p><code>func NewRuleset() *Ruleset</code></p>
-				
-				
-			
-			
-				
-				<h3 id="Ruleset.AddAcronym">func (*Ruleset) <a href="/?s=8446:8488#L268">AddAcronym</a></h3>
-				<p><code>func (rs *Ruleset) AddAcronym(word string)</code></p>
-				
-				
-				
-			
-				
-				<h3 id="Ruleset.AddHuman">func (*Ruleset) <a href="/?s=8010:8065#L253">AddHuman</a></h3>
-				<p><code>func (rs *Ruleset) AddHuman(suffix, replacement string)</code></p>
-				
-				
-				
-			
-				
-				<h3 id="Ruleset.AddIrregular">func (*Ruleset) <a href="/?s=8193:8249#L260">AddIrregular</a></h3>
-				<p><code>func (rs *Ruleset) AddIrregular(singular, plural string)</code></p>
-				
-				
-				
-			
-				
-				<h3 id="Ruleset.AddPlural">func (*Ruleset) <a href="/?s=7135:7191#L221">AddPlural</a></h3>
-				<p><code>func (rs *Ruleset) AddPlural(suffix, replacement string)</code></p>
-				
-				
-				
-			
-				
-				<h3 id="Ruleset.AddPluralExact">func (*Ruleset) <a href="/?s=7247:7320#L225">AddPluralExact</a></h3>
-				<p><code>func (rs *Ruleset) AddPluralExact(suffix, replacement string, exact bool)</code></p>
-				
-				
-				
-			
-				
-				<h3 id="Ruleset.AddSingular">func (*Ruleset) <a href="/?s=7573:7631#L238">AddSingular</a></h3>
-				<p><code>func (rs *Ruleset) AddSingular(suffix, replacement string)</code></p>
-				
-				
-				
-			
-				
-				<h3 id="Ruleset.AddSingularExact">func (*Ruleset) <a href="/?s=7689:7764#L242">AddSingularExact</a></h3>
-				<p><code>func (rs *Ruleset) AddSingularExact(suffix, replacement string, exact bool)</code></p>
-				
-				
-				
-			
-				
-				<h3 id="Ruleset.AddUncountable">func (*Ruleset) <a href="/?s=8631:8677#L275">AddUncountable</a></h3>
-				<p><code>func (rs *Ruleset) AddUncountable(word string)</code></p>
-				
-				
-				
-			
-				
-				<h3 id="Ruleset.Asciify">func (*Ruleset) <a href="/?s=13214:13260#L433">Asciify</a></h3>
-				<p><code>func (rs *Ruleset) Asciify(word string) string</code></p>
-				<p>
-transforms latin characters like é -&gt; e
-</p>
+FUNCTIONS
 
-				
-				
-			
-				
-				<h3 id="Ruleset.Camelize">func (*Ruleset) <a href="/?s=10089:10136#L334">Camelize</a></h3>
-				<p><code>func (rs *Ruleset) Camelize(word string) string</code></p>
-				
-				
-				
-			
-				
-				<h3 id="Ruleset.CamelizeDownFirst">func (*Ruleset) <a href="/?s=10227:10283#L339">CamelizeDownFirst</a></h3>
-				<p><code>func (rs *Ruleset) CamelizeDownFirst(word string) string</code></p>
-				
-				
-				
-			
-				
-				<h3 id="Ruleset.Capitalize">func (*Ruleset) <a href="/?s=10020:10069#L330">Capitalize</a></h3>
-				<p><code>func (rs *Ruleset) Capitalize(word string) string</code></p>
-				
-				
-				
-			
-				
-				<h3 id="Ruleset.Dasherize">func (*Ruleset) <a href="/?s=13591:13639#L447">Dasherize</a></h3>
-				<p><code>func (rs *Ruleset) Dasherize(word string) string</code></p>
-				
-				
-				
-			
-				
-				<h3 id="Ruleset.ForeignKey">func (*Ruleset) <a href="/?s=11384:11433#L377">ForeignKey</a></h3>
-				<p><code>func (rs *Ruleset) ForeignKey(word string) string</code></p>
-				
-				
-				
-			
-				
-				<h3 id="Ruleset.ForeignKeyCondensed">func (*Ruleset) <a href="/?s=11478:11536#L381">ForeignKeyCondensed</a></h3>
-				<p><code>func (rs *Ruleset) ForeignKeyCondensed(word string) string</code></p>
-				
-				
-				
-			
-				
-				<h3 id="Ruleset.Humanize">func (*Ruleset) <a href="/?s=11009:11056#L367">Humanize</a></h3>
-				<p><code>func (rs *Ruleset) Humanize(word string) string</code></p>
-				
-				
-				
-			
-				
-				<h3 id="Ruleset.IsUncountable">func (*Ruleset) <a href="/?s=8733:8783#L279">IsUncountable</a></h3>
-				<p><code>func (rs *Ruleset) IsUncountable(word string) bool</code></p>
-				
-				
-				
-			
-				
-				<h3 id="Ruleset.Ordinalize">func (*Ruleset) <a href="/?s=13685:13733#L451">Ordinalize</a></h3>
-				<p><code>func (rs *Ruleset) Ordinalize(str string) string</code></p>
-				
-				
-				
-			
-				
-				<h3 id="Ruleset.Parameterize">func (*Ruleset) <a href="/?s=11757:11808#L391">Parameterize</a></h3>
-				<p><code>func (rs *Ruleset) Parameterize(word string) string</code></p>
-				
-				
-				
-			
-				
-				<h3 id="Ruleset.ParameterizeJoin">func (*Ruleset) <a href="/?s=11853:11913#L395">ParameterizeJoin</a></h3>
-				<p><code>func (rs *Ruleset) ParameterizeJoin(word, sep string) string</code></p>
-				
-				
-				
-			
-				
-				<h3 id="Ruleset.Pluralize">func (*Ruleset) <a href="/?s=9004:9052#L288">Pluralize</a></h3>
-				<p><code>func (rs *Ruleset) Pluralize(word string) string</code></p>
-				
-				
-				
-			
-				
-				<h3 id="Ruleset.Singularize">func (*Ruleset) <a href="/?s=9512:9562#L309">Singularize</a></h3>
-				<p><code>func (rs *Ruleset) Singularize(word string) string</code></p>
-				
-				
-				
-			
-				
-				<h3 id="Ruleset.Tableize">func (*Ruleset) <a href="/?s=11580:11627#L385">Tableize</a></h3>
-				<p><code>func (rs *Ruleset) Tableize(word string) string</code></p>
-				
-				
-				
-			
-				
-				<h3 id="Ruleset.Titleize">func (*Ruleset) <a href="/?s=10363:10410#L344">Titleize</a></h3>
-				<p><code>func (rs *Ruleset) Titleize(word string) string</code></p>
-				
-				
-				
-			
-				
-				<h3 id="Ruleset.Typeify">func (*Ruleset) <a href="/?s=13444:13490#L442">Typeify</a></h3>
-				<p><code>func (rs *Ruleset) Typeify(word string) string</code></p>
-				
-				
-				
-			
-				
-				<h3 id="Ruleset.Uncountables">func (*Ruleset) <a href="/?s=7053:7102#L217">Uncountables</a></h3>
-				<p><code>func (rs *Ruleset) Uncountables() map[string]bool</code></p>
-				
-				
-				
-			
-				
-				<h3 id="Ruleset.Underscore">func (*Ruleset) <a href="/?s=10914:10963#L363">Underscore</a></h3>
-				<p><code>func (rs *Ruleset) Underscore(word string) string</code></p>
-				
-				
-				
-			
-		
-	
-	
+func AddAcronym(word string)
 
+func AddHuman(suffix, replacement string)
+
+func AddIrregular(singular, plural string)
+
+func AddPlural(suffix, replacement string)
+
+func AddSingular(suffix, replacement string)
+
+func AddUncountable(word string)
+
+func Asciify(word string) string
+
+func Camelize(word string) string
+
+func CamelizeDownFirst(word string) string
+
+func Capitalize(word string) string
+
+func Dasherize(word string) string
+
+func ForeignKey(word string) string
+
+func ForeignKeyCondensed(word string) string
+
+func Humanize(word string) string
+
+func Ordinalize(word string) string
+
+func Parameterize(word string) string
+
+func ParameterizeJoin(word, sep string) string
+
+func Pluralize(word string) string
+
+func Singularize(word string) string
+
+func Tableize(word string) string
+
+func Titleize(word string) string
+
+func Typeify(word string) string
+
+func Uncountables() map[string]bool
+
+func Underscore(word string) string
+
+
+TYPES
+
+type Rule struct {
+    // contains filtered or unexported fields
+}
+
+type Ruleset struct {
+    // contains filtered or unexported fields
+}
+
+func NewDefaultRuleset() *Ruleset
+
+func NewRuleset() *Ruleset
+
+func (rs *Ruleset) AddAcronym(word string)
+
+func (rs *Ruleset) AddHuman(suffix, replacement string)
+
+func (rs *Ruleset) AddIrregular(singular, plural string)
+
+func (rs *Ruleset) AddPlural(suffix, replacement string)
+
+func (rs *Ruleset) AddPluralExact(suffix, replacement string, exact bool)
+
+func (rs *Ruleset) AddSingular(suffix, replacement string)
+
+func (rs *Ruleset) AddSingularExact(suffix, replacement string, exact bool)
+
+func (rs *Ruleset) AddUncountable(word string)
+
+func (rs *Ruleset) Asciify(word string) string
+transforms latin characters like é -> e
+
+func (rs *Ruleset) Camelize(word string) string
+
+func (rs *Ruleset) CamelizeDownFirst(word string) string
+
+func (rs *Ruleset) Capitalize(word string) string
+
+func (rs *Ruleset) Dasherize(word string) string
+
+func (rs *Ruleset) ForeignKey(word string) string
+
+func (rs *Ruleset) ForeignKeyCondensed(word string) string
+
+func (rs *Ruleset) Humanize(word string) string
+
+func (rs *Ruleset) IsUncountable(word string) bool
+
+func (rs *Ruleset) Ordinalize(str string) string
+
+func (rs *Ruleset) Parameterize(word string) string
+
+func (rs *Ruleset) ParameterizeJoin(word, sep string) string
+
+func (rs *Ruleset) Pluralize(word string) string
+
+func (rs *Ruleset) Singularize(word string) string
+
+func (rs *Ruleset) Tableize(word string) string
+
+func (rs *Ruleset) Titleize(word string) string
+
+func (rs *Ruleset) Typeify(word string) string
+
+func (rs *Ruleset) Uncountables() map[string]bool
+
+func (rs *Ruleset) Underscore(word string) string
 
 
