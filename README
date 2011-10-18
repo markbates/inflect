@@ -1,7 +1,10 @@
+INSTALLATION
+
+goinstall bitbucket.org/chrisfarms/inflect
+
 PACKAGE
 
 package inflect
-import "."
 
 
 FUNCTIONS
