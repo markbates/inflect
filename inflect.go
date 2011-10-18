@@ -582,6 +582,10 @@ func Ordinalize(word string) string {
     return defaultRuleset.Ordinalize(word)
 }
 
+func Asciify(word string) string {
+    return defaultRuleset.Asciify(word)
+}
+
 
 // helper funcs
 
