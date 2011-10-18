@@ -435,7 +435,7 @@ var lookalikes map[string]*regexp.Regexp = map[string]*regexp.Regexp{
     "i": regexp.MustCompile(`ì|í|î|ï`),
     "n": regexp.MustCompile(`ñ`),
     "o": regexp.MustCompile(`ò|ó|ô|õ|ö|ø`),
-    "u": regexp.MustCompile(`ù|ú|û|ü|ũ|ū|ŭ|ů|ű|ų|ŋ`),
+    "u": regexp.MustCompile(`ù|ú|û|ü|ũ|ū|ŭ|ů|ű|ų`),
     "y": regexp.MustCompile(`ý|ÿ`),
 }
 
