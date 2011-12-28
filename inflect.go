@@ -1,12 +1,12 @@
 package inflect
 
 import (
-	"regexp"
-	"strings"
-	"utf8"
-	"strconv"
 	"fmt"
+	"regexp"
+	"strconv"
+	"strings"
 	"unicode"
+	"unicode/utf8"
 )
 
 // used by rulesets
@@ -245,7 +245,7 @@ func (rs *Ruleset) AddPlural(suffix, replacement string) {
 // add a pluralization rule with full string match
 func (rs *Ruleset) AddPluralExact(suffix, replacement string, exact bool) {
 	// remove uncountable
-	rs.uncountables[suffix] = false, false
+	delete(rs.uncountables, suffix)
 	// create rule
 	r := new(Rule)
 	r.suffix = suffix
@@ -264,7 +264,7 @@ func (rs *Ruleset) AddSingular(suffix, replacement string) {
 // a full string match
 func (rs *Ruleset) AddSingularExact(suffix, replacement string, exact bool) {
 	// remove from uncountable
-	rs.uncountables[suffix] = false, false
+	delete(rs.uncountables, suffix)
 	// create rule
 	r := new(Rule)
 	r.suffix = suffix
@@ -285,8 +285,8 @@ func (rs *Ruleset) AddHuman(suffix, replacement string) {
 // Add any inconsistant pluralizing/sinularizing rules
 // to the set here.
 func (rs *Ruleset) AddIrregular(singular, plural string) {
-	rs.uncountables[singular] = false, false
-	rs.uncountables[plural] = false, false
+	delete(rs.uncountables, singular)
+	delete(rs.uncountables, plural)
 	rs.AddPlural(singular, plural)
 	rs.AddPlural(plural, plural)
 	rs.AddSingular(plural, singular)
@@ -417,7 +417,7 @@ func (rs *Ruleset) Humanize(word string) string {
 
 // an underscored foreign key name "Person" -> "person_id"
 func (rs *Ruleset) ForeignKey(word string) string {
-	return rs.Underscore(word) + "_id"
+	return rs.Underscore(rs.Singularize(word)) + "_id"
 }
 
 // a foreign key (with an underscore) "Person" -> "personid"

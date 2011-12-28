@@ -122,6 +122,11 @@ var ClassNameToForeignKeyWithUnderscore map[string]string = map[string]string{
 	"Account": "account_id",
 }
 
+var PluralToForeignKeyWithUnderscore map[string]string = map[string]string{
+	"people":  "person_id",
+	"accounts": "account_id",
+}
+
 var ClassNameToForeignKeyWithoutUnderscore map[string]string = map[string]string{
 	"Person":  "personid",
 	"Account": "accountid",
@@ -440,6 +445,9 @@ func TestUnderscore(t *testing.T) {
 func TestForeignKey(t *testing.T) {
 	for klass, foreign_key := range ClassNameToForeignKeyWithUnderscore {
 		assertEqual(t, foreign_key, ForeignKey(klass))
+	}
+	for word, foreign_key := range PluralToForeignKeyWithUnderscore {
+		assertEqual(t, foreign_key, ForeignKey(word))
 	}
 	for klass, foreign_key := range ClassNameToForeignKeyWithoutUnderscore {
 		assertEqual(t, foreign_key, ForeignKeyCondensed(klass))
