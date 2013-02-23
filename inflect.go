@@ -627,7 +627,7 @@ func Asciify(word string) string {
 // helper funcs
 
 func reverse(s string) string {
-	o := make([]int, utf8.RuneCountInString(s))
+	o := make([]rune, utf8.RuneCountInString(s))
 	i := len(o)
 	for _, c := range s {
 		i--
@@ -636,15 +636,15 @@ func reverse(s string) string {
 	return string(o)
 }
 
-func isSpacerChar(c int) bool {
+func isSpacerChar(c rune) bool {
 	switch {
-	case c == int("_"[0]):
+	case c == rune("_"[0]):
 		return true
-	case c == int(" "[0]):
+	case c == rune(" "[0]):
 		return true
-	case c == int(":"[0]):
+	case c == rune(":"[0]):
 		return true
-	case c == int("-"[0]):
+	case c == rune("-"[0]):
 		return true
 	}
 	return false
@@ -652,13 +652,13 @@ func isSpacerChar(c int) bool {
 
 func splitAtCaseChange(s string) []string {
 	words := make([]string, 0)
-	word := make([]int, 0)
+	word := make([]rune, 0)
 	for _, c := range s {
 		spacer := isSpacerChar(c)
 		if len(word) > 0 {
 			if unicode.IsUpper(c) || spacer {
 				words = append(words, string(word))
-				word = make([]int, 0)
+				word = make([]rune, 0)
 			}
 		}
 		if !spacer {
@@ -671,13 +671,13 @@ func splitAtCaseChange(s string) []string {
 
 func splitAtCaseChangeWithTitlecase(s string) []string {
 	words := make([]string, 0)
-	word := make([]int, 0)
+	word := make([]rune, 0)
 	for _, c := range s {
 		spacer := isSpacerChar(c)
 		if len(word) > 0 {
 			if unicode.IsUpper(c) || spacer {
 				words = append(words, string(word))
-				word = make([]int, 0)
+				word = make([]rune, 0)
 			}
 		}
 		if !spacer {
