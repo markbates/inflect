@@ -96,6 +96,13 @@ var SingularToPlural map[string]string = map[string]string{
 	"database":    "databases",
 }
 
+var CapitalizeMixture map[string]string = map[string]string{
+	"product":               "Product",
+	"special_guest":         "Special_guest",
+	"applicationController": "ApplicationController",
+	"Area51Controller":      "Area51Controller",
+}
+
 var CamelToUnderscore map[string]string = map[string]string{
 	"Product":               "product",
 	"SpecialGuest":          "special_guest",
@@ -123,7 +130,7 @@ var ClassNameToForeignKeyWithUnderscore map[string]string = map[string]string{
 }
 
 var PluralToForeignKeyWithUnderscore map[string]string = map[string]string{
-	"people":  "person_id",
+	"people":   "person_id",
 	"accounts": "account_id",
 }
 
@@ -343,21 +350,21 @@ func TestUncountableWordIsNotGreedy(t *testing.T) {
 func TestPluralizeSingular(t *testing.T) {
 	for singular, plural := range SingularToPlural {
 		assertEqual(t, plural, Pluralize(singular))
-		assertEqual(t, Capitalize(plural), Pluralize(Capitalize(singular)))
+		assertEqual(t, Capitalize(plural), Capitalize(Pluralize(singular)))
 	}
 }
 
 func TestSingularizePlural(t *testing.T) {
 	for singular, plural := range SingularToPlural {
 		assertEqual(t, singular, Singularize(plural))
-		assertEqual(t, Capitalize(singular), Singularize(Capitalize(plural)))
+		assertEqual(t, Capitalize(singular), Capitalize(Singularize(plural)))
 	}
 }
 
 func TestPluralizePlural(t *testing.T) {
 	for _, plural := range SingularToPlural {
 		assertEqual(t, plural, Pluralize(plural))
-		assertEqual(t, Capitalize(plural), Pluralize(Capitalize(plural)))
+		assertEqual(t, Capitalize(plural), Capitalize(Pluralize(plural)))
 	}
 }
 
@@ -371,6 +378,12 @@ func TestOverwritePreviousInflectors(t *testing.T) {
 func TestTitleize(t *testing.T) {
 	for before, titleized := range MixtureToTitleCase {
 		assertEqual(t, titleized, Titleize(before))
+	}
+}
+
+func TestCapitalize(t *testing.T) {
+	for lower, capitalized := range CapitalizeMixture {
+		assertEqual(t, capitalized, Capitalize(lower))
 	}
 }
 
