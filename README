@@ -1,6 +1,6 @@
 INSTALLATION
 
-go get bitbucket.org/pkg/inflect
+go get github.com/markbates/inflect
 
 PACKAGE
 
