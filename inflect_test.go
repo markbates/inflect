@@ -315,6 +315,12 @@ var AcronymCases = []*AcronymCase{
 
 // tests
 
+func TestPluralizeWithSize(t *testing.T) {
+	assertEqual(t, "plurals", PluralizeWithSize("plurals", 2))
+	assertEqual(t, "plurals", PluralizeWithSize("plurals", 0))
+	assertEqual(t, "plural", PluralizeWithSize("plurals", 1))
+}
+
 func TestPluralizePlurals(t *testing.T) {
 	assertEqual(t, "plurals", Pluralize("plurals"))
 	assertEqual(t, "Plurals", Pluralize("Plurals"))

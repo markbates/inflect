@@ -317,6 +317,13 @@ func (rs *Ruleset) isUncountable(word string) bool {
 	return false
 }
 
+func (rs *Ruleset) PluralizeWithSize(word string, size int) string {
+	if size == 1 {
+		return rs.Singularize(word)
+	}
+	return rs.Pluralize(word)
+}
+
 // returns the plural form of a singular word
 func (rs *Ruleset) Pluralize(word string) string {
 	if len(word) == 0 {
@@ -562,6 +569,10 @@ func AddUncountable(word string) {
 
 func Pluralize(word string) string {
 	return defaultRuleset.Pluralize(word)
+}
+
+func PluralizeWithSize(word string, size int) string {
+	return defaultRuleset.PluralizeWithSize(word, size)
 }
 
 func Singularize(word string) string {
