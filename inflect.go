@@ -529,6 +529,14 @@ func (rs *Ruleset) Ordinalize(str string) string {
 	return fmt.Sprintf("%dth", number)
 }
 
+func (rs *Ruleset) ForeignKeyToAttribute(str string) string {
+	w := rs.Camelize(str)
+	if strings.HasSuffix(w, "Id") {
+		return strings.TrimSuffix(w, "Id") + "ID"
+	}
+	return w
+}
+
 /////////////////////////////////////////
 // the default global ruleset
 //////////////////////////////////////////
@@ -637,6 +645,10 @@ func Ordinalize(word string) string {
 
 func Asciify(word string) string {
 	return defaultRuleset.Asciify(word)
+}
+
+func ForeignKeyToAttribute(word string) string {
+	return defaultRuleset.ForeignKeyToAttribute(word)
 }
 
 // helper funcs

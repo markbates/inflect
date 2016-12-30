@@ -315,6 +315,11 @@ var AcronymCases = []*AcronymCase{
 
 // tests
 
+func TestForeignKeyToAttribute(t *testing.T) {
+	assertEqual(t, "PersonID", ForeignKeyToAttribute("person_id"))
+	assertEqual(t, "ID", ForeignKeyToAttribute("id"))
+}
+
 func TestPluralizeWithSize(t *testing.T) {
 	assertEqual(t, "plurals", PluralizeWithSize("plurals", 2))
 	assertEqual(t, "plurals", PluralizeWithSize("plurals", 0))
