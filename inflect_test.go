@@ -565,3 +565,10 @@ func TestPluralizeOfIrregularity(t *testing.T) {
 		assertEqual(t, plural, Pluralize(plural))
 	}
 }
+
+func Test_Address(t *testing.T) {
+	assertEqual(t, "address", Singularize("address"))
+	assertEqual(t, "addresses", Pluralize("address"))
+	assertEqual(t, "address", Singularize("addresses"))
+	assertEqual(t, "addresses", Pluralize("addresses"))
+}
