@@ -371,6 +371,13 @@ func TestSingularizePlural(t *testing.T) {
 	}
 }
 
+func TestSingularizeSingular(t *testing.T) {
+	for singular, _ := range SingularToPlural {
+		assertEqual(t, singular, Singularize(singular))
+		assertEqual(t, Capitalize(singular), Capitalize(Singularize(singular)))
+	}
+}
+
 func TestPluralizePlural(t *testing.T) {
 	for _, plural := range SingularToPlural {
 		assertEqual(t, plural, Pluralize(plural))
