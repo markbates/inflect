@@ -344,12 +344,17 @@ func (rs *Ruleset) Pluralize(word string) string {
 	if len(word) == 0 {
 		return word
 	}
-	if rs.isUncountable(word) {
+	lWord := strings.ToLower(word)
+	if rs.isUncountable(lWord) {
 		return word
 	}
 	for _, rule := range rs.plurals {
 		if rule.exact {
-			if word == rule.suffix {
+			if lWord == rule.suffix {
+				// Capitalized word
+				if lWord[0] != word[0] && lWord[1:] == word[1:] {
+					return Capitalize(rule.replacement)
+				}
 				return rule.replacement
 			}
 		} else {
@@ -366,12 +371,17 @@ func (rs *Ruleset) Singularize(word string) string {
 	if len(word) <= 1 {
 		return word
 	}
-	if rs.isUncountable(word) {
+	lWord := strings.ToLower(word)
+	if rs.isUncountable(lWord) {
 		return word
 	}
 	for _, rule := range rs.singulars {
 		if rule.exact {
-			if word == rule.suffix {
+			if lWord == rule.suffix {
+				// Capitalized word
+				if lWord[0] != word[0] && lWord[1:] == word[1:] {
+					return Capitalize(rule.replacement)
+				}
 				return rule.replacement
 			}
 		} else {
