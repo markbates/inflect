@@ -141,6 +141,7 @@ var ClassNameToForeignKeyWithoutUnderscore = map[string]string{
 var ClassNameToTableName = map[string]string{
 	"PrimarySpokesman": "primary_spokesmen",
 	"NodeChild":        "node_children",
+	"Alias":            "aliases",
 }
 
 var StringToParameterized = map[string]string{
