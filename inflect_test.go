@@ -316,6 +316,11 @@ var AcronymCases = []*AcronymCase{
 
 // tests
 
+func Test_LoadViaFile(t *testing.T) {
+	assertEqual(t, "feedback", Pluralize("feedback"))
+	assertEqual(t, "buffalo!", Singularize("buffalos!"))
+}
+
 func TestForeignKeyToAttribute(t *testing.T) {
 	assertEqual(t, "PersonID", ForeignKeyToAttribute("person_id"))
 	assertEqual(t, "ID", ForeignKeyToAttribute("id"))

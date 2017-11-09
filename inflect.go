@@ -1,12 +1,18 @@
 package inflect
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"os"
+	"path/filepath"
 	"regexp"
 	"strconv"
 	"strings"
 	"unicode"
 	"unicode/utf8"
+
+	"github.com/kr/pretty"
 )
 
 // used by rulesets
@@ -570,6 +576,35 @@ var defaultRuleset *Ruleset
 
 func init() {
 	defaultRuleset = NewDefaultRuleset()
+
+	pwd, _ := os.Getwd()
+	cfg := filepath.Join(pwd, "inflections.json")
+	if p := os.Getenv("INFLECT_PATH"); p != "" {
+		cfg = p
+	}
+	pretty.Println("### cfg ->", cfg)
+	if _, err := os.Stat(cfg); err == nil {
+		b, err := ioutil.ReadFile(cfg)
+		pretty.Println("### string(b) ->", string(b))
+		if err != nil {
+			pretty.Println("### err ->", err)
+			fmt.Printf("could not read inflection file %s (%s)\n", cfg, err)
+			return
+		}
+		m := map[string]string{}
+		err = json.Unmarshal(b, &m)
+		pretty.Println("### err ->", err)
+		if err != nil {
+			fmt.Printf("could not Unmarshal inflection file %s (%s)\n", cfg, err)
+			return
+		}
+		pretty.Println("### m ->", m)
+		for s, p := range m {
+			pretty.Println("### s ->", s)
+			pretty.Println("### p ->", p)
+			defaultRuleset.AddIrregular(s, p)
+		}
+	}
 }
 
 func Uncountables() map[string]bool {
