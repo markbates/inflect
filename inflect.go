@@ -586,6 +586,10 @@ func (rs *Ruleset) LoadReader(r io.Reader) error {
 
 var defaultRuleset *Ruleset
 
+func LoadReader(r io.Reader) error {
+	return defaultRuleset.LoadReader(r)
+}
+
 func init() {
 	defaultRuleset = NewDefaultRuleset()
 
