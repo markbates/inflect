@@ -1,8 +1,10 @@
 package inflect
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -11,8 +13,6 @@ import (
 	"strings"
 	"unicode"
 	"unicode/utf8"
-
-	"github.com/kr/pretty"
 )
 
 // used by rulesets
@@ -568,6 +568,18 @@ func (rs *Ruleset) ForeignKeyToAttribute(str string) string {
 	return w
 }
 
+func (rs *Ruleset) LoadReader(r io.Reader) error {
+	m := map[string]string{}
+	err := json.NewDecoder(r).Decode(&m)
+	if err != nil {
+		return fmt.Errorf("could not decode inflection JSON from reader: %s", err)
+	}
+	for s, p := range m {
+		defaultRuleset.AddIrregular(s, p)
+	}
+	return nil
+}
+
 /////////////////////////////////////////
 // the default global ruleset
 //////////////////////////////////////////
@@ -582,27 +594,14 @@ func init() {
 	if p := os.Getenv("INFLECT_PATH"); p != "" {
 		cfg = p
 	}
-	pretty.Println("### cfg ->", cfg)
 	if _, err := os.Stat(cfg); err == nil {
 		b, err := ioutil.ReadFile(cfg)
-		pretty.Println("### string(b) ->", string(b))
 		if err != nil {
-			pretty.Println("### err ->", err)
 			fmt.Printf("could not read inflection file %s (%s)\n", cfg, err)
 			return
 		}
-		m := map[string]string{}
-		err = json.Unmarshal(b, &m)
-		pretty.Println("### err ->", err)
-		if err != nil {
-			fmt.Printf("could not Unmarshal inflection file %s (%s)\n", cfg, err)
-			return
-		}
-		pretty.Println("### m ->", m)
-		for s, p := range m {
-			pretty.Println("### s ->", s)
-			pretty.Println("### p ->", p)
-			defaultRuleset.AddIrregular(s, p)
+		if err = defaultRuleset.LoadReader(bytes.NewReader(b)); err != nil {
+			fmt.Println(err)
 		}
 	}
 }
