@@ -302,7 +302,7 @@ func (rs *Ruleset) AddHuman(suffix, replacement string) {
 	rs.humans = append([]*Rule{r}, rs.humans...)
 }
 
-// Add any inconsistant pluralizing/sinularizing rules
+// Add any inconsistent pluralizing/singularizing rules
 // to the set here.
 func (rs *Ruleset) AddIrregular(singular, plural string) {
 	delete(rs.uncountables, singular)
@@ -415,14 +415,14 @@ func (rs *Ruleset) CamelizeDownFirst(word string) string {
 	return strings.ToLower(word[:1]) + word[1:]
 }
 
-// Captitilize every word in sentence "hello there" -> "Hello There"
+// Capitalize every word in sentence "hello there" -> "Hello There"
 func (rs *Ruleset) Titleize(word string) string {
 	words := splitAtCaseChangeWithTitlecase(word)
 	return strings.Join(words, " ")
 }
 
 func (rs *Ruleset) safeCaseAcronyms(word string) string {
-	// convert an acroymn like HTML into Html
+	// convert an acronym like HTML into Html
 	for _, rule := range rs.acronyms {
 		word = strings.Replace(word, rule.suffix, rule.replacement, -1)
 	}
@@ -440,7 +440,7 @@ func (rs *Ruleset) Underscore(word string) string {
 	return rs.separatedWords(word, "_")
 }
 
-// First letter of sentence captitilized
+// First letter of sentence capitalized
 // Uses custom friendly replacements via AddHuman()
 func (rs *Ruleset) Humanize(word string) string {
 	word = replaceLast(word, "_id", "") // strip foreign key kinds
@@ -518,7 +518,7 @@ var lookalikes map[string]*regexp.Regexp = map[string]*regexp.Regexp{
 	"y":  regexp.MustCompile(`ý|ÿ`),
 }
 
-// transforms latin characters like é -> e
+// transforms Latin characters like é -> e
 func (rs *Ruleset) Asciify(word string) string {
 	for repl, regex := range lookalikes {
 		word = regex.ReplaceAllString(word, repl)
