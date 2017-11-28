@@ -133,7 +133,7 @@ func (rs *Ruleset) ForeignKeyCondensed(word string) string
 a foreign key (with an underscore) "Person" -> "personid"
 
 func (rs *Ruleset) Humanize(word string) string
-First letter of sentance captitilized
+First letter of sentence capitalized
 Uses custom friendly replacements via AddHuman()
 
 func (rs *Ruleset) Ordinalize(str string) string
@@ -155,7 +155,7 @@ func (rs *Ruleset) Tableize(word string) string
 Rails style pluralized table names: "SuperPerson" -> "super_people"
 
 func (rs *Ruleset) Titleize(word string) string
-Captitilize every word in sentance "hello there" -> "Hello There"
+Capitalize every word in sentence "hello there" -> "Hello There"
 
 func (rs *Ruleset) Typeify(word string) string
 "something_like_this" -> "SomethingLikeThis"
@@ -164,5 +164,3 @@ func (rs *Ruleset) Uncountables() map[string]bool
 
 func (rs *Ruleset) Underscore(word string) string
 lowercase underscore version "BigBen" -> "big_ben"
-
-

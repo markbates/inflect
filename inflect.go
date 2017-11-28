@@ -416,7 +416,7 @@ func (rs *Ruleset) CamelizeDownFirst(word string) string {
 	return strings.ToLower(word[:1]) + word[1:]
 }
 
-// Captitilize every word in sentance "hello there" -> "Hello There"
+// Capitalize every word in sentence "hello there" -> "Hello There"
 func (rs *Ruleset) Titleize(word string) string {
 	words := splitAtCaseChangeWithTitlecase(word)
 	return strings.Join(words, " ")
@@ -441,7 +441,7 @@ func (rs *Ruleset) Underscore(word string) string {
 	return rs.seperatedWords(word, "_")
 }
 
-// First letter of sentance captitilized
+// First letter of sentence capitalized
 // Uses custom friendly replacements via AddHuman()
 func (rs *Ruleset) Humanize(word string) string {
 	word = replaceLast(word, "_id", "") // strip foreign key kinds
@@ -449,10 +449,10 @@ func (rs *Ruleset) Humanize(word string) string {
 	for _, rule := range rs.humans {
 		word = strings.Replace(word, rule.suffix, rule.replacement, -1)
 	}
-	sentance := rs.seperatedWords(word, " ")
+	sentence := rs.seperatedWords(word, " ")
 
-	r, n := utf8.DecodeRuneInString(sentance)
-	return string(unicode.ToUpper(r)) + sentance[n:]
+	r, n := utf8.DecodeRuneInString(sentence)
+	return string(unicode.ToUpper(r)) + sentence[n:]
 }
 
 // an underscored foreign key name "Person" -> "person_id"
