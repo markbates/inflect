@@ -191,6 +191,7 @@ var UnderscoreToHuman = map[string]string{
 	"employee_salary": "Employee salary",
 	"employee_id":     "Employee",
 	"underground":     "Underground",
+	"óbito":           "Óbito",
 }
 
 var MixtureToTitleCase = map[string]string{
