@@ -25,12 +25,11 @@ type Rule struct {
 // a Ruleset is the config of pluralization rules
 // you can extend the rules with the Add* methods
 type Ruleset struct {
-	uncountables   map[string]bool
-	plurals        []*Rule
-	singulars      []*Rule
-	humans         []*Rule
-	acronyms       []*Rule
-	acronymMatcher *regexp.Regexp
+	uncountables map[string]bool
+	plurals      []*Rule
+	singulars    []*Rule
+	humans       []*Rule
+	acronyms     []*Rule
 }
 
 // create a blank ruleset. Unless you are going to
