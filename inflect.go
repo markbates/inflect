@@ -416,7 +416,7 @@ func (rs *Ruleset) CamelizeDownFirst(word string) string {
 	return strings.ToLower(word[:1]) + word[1:]
 }
 
-// Captitilize every word in sentance "hello there" -> "Hello There"
+// Captitilize every word in sentence "hello there" -> "Hello There"
 func (rs *Ruleset) Titleize(word string) string {
 	words := splitAtCaseChangeWithTitlecase(word)
 	return strings.Join(words, " ")
@@ -430,7 +430,7 @@ func (rs *Ruleset) safeCaseAcronyms(word string) string {
 	return word
 }
 
-func (rs *Ruleset) seperatedWords(word, sep string) string {
+func (rs *Ruleset) separatedWords(word, sep string) string {
 	word = rs.safeCaseAcronyms(word)
 	words := splitAtCaseChange(word)
 	return strings.Join(words, sep)
@@ -438,10 +438,10 @@ func (rs *Ruleset) seperatedWords(word, sep string) string {
 
 // lowercase underscore version "BigBen" -> "big_ben"
 func (rs *Ruleset) Underscore(word string) string {
-	return rs.seperatedWords(word, "_")
+	return rs.separatedWords(word, "_")
 }
 
-// First letter of sentance captitilized
+// First letter of sentence captitilized
 // Uses custom friendly replacements via AddHuman()
 func (rs *Ruleset) Humanize(word string) string {
 	word = replaceLast(word, "_id", "") // strip foreign key kinds
@@ -449,10 +449,10 @@ func (rs *Ruleset) Humanize(word string) string {
 	for _, rule := range rs.humans {
 		word = strings.Replace(word, rule.suffix, rule.replacement, -1)
 	}
-	sentance := rs.seperatedWords(word, " ")
+	sentence := rs.separatedWords(word, " ")
 
-	r, n := utf8.DecodeRuneInString(sentance)
-	return string(unicode.ToUpper(r)) + sentance[n:]
+	r, n := utf8.DecodeRuneInString(sentence)
+	return string(unicode.ToUpper(r)) + sentence[n:]
 }
 
 // an underscored foreign key name "Person" -> "person_id"
@@ -477,7 +477,7 @@ func (rs *Ruleset) Parameterize(word string) string {
 	return ParameterizeJoin(word, "-")
 }
 
-// param safe dasherized names with custom seperator
+// param safe dasherized names with custom separator
 func (rs *Ruleset) ParameterizeJoin(word, sep string) string {
 	word = strings.ToLower(word)
 	word = rs.Asciify(word)
@@ -537,7 +537,7 @@ func (rs *Ruleset) Typeify(word string) string {
 
 // "SomeText" -> "some-text"
 func (rs *Ruleset) Dasherize(word string) string {
-	return rs.seperatedWords(word, "-")
+	return rs.separatedWords(word, "-")
 }
 
 // "1031" -> "1031st"
