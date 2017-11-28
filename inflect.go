@@ -450,7 +450,9 @@ func (rs *Ruleset) Humanize(word string) string {
 		word = strings.Replace(word, rule.suffix, rule.replacement, -1)
 	}
 	sentance := rs.seperatedWords(word, " ")
-	return strings.ToUpper(sentance[:1]) + sentance[1:]
+
+	r, n := utf8.DecodeRuneInString(sentance)
+	return string(unicode.ToUpper(r)) + sentance[n:]
 }
 
 // an underscored foreign key name "Person" -> "person_id"
