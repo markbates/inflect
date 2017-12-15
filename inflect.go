@@ -240,6 +240,7 @@ func NewDefaultRuleset() *Ruleset {
 	rs.AddIrregular("sex", "sexes")
 	rs.AddIrregular("move", "moves")
 	rs.AddIrregular("zombie", "zombies")
+	rs.AddIrregular("status", "statuses")
 	rs.AddUncountable("equipment")
 	rs.AddUncountable("information")
 	rs.AddUncountable("rice")
@@ -408,6 +409,9 @@ func (rs *Ruleset) Capitalize(word string) string {
 
 // "dino_party" -> "DinoParty"
 func (rs *Ruleset) Camelize(word string) string {
+	if strings.ToLower(word) == "id" {
+		return "ID"
+	}
 	words := splitAtCaseChangeWithTitlecase(word)
 	return strings.Join(words, "")
 }
