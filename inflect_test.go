@@ -67,6 +67,7 @@ var SingularToPlural = map[string]string{
 	"equipment":   "equipment",
 	"bus":         "buses",
 	"status":      "statuses",
+	"Status":      "Statuses",
 	"status_code": "status_codes",
 	"mouse":       "mice",
 	"louse":       "lice",
