@@ -400,6 +400,9 @@ func (rs *Ruleset) Singularize(word string) string {
 
 // uppercase first character
 func (rs *Ruleset) Capitalize(word string) string {
+	if strings.ToLower(word) == "id" {
+		return "ID"
+	}
 	return strings.ToUpper(word[:1]) + word[1:]
 }
 

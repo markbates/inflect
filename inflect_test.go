@@ -7,6 +7,7 @@ import (
 // assert helper
 
 func assertEqual(t *testing.T, a, b string) {
+	t.Helper()
 	if a != b {
 		t.Errorf("inflect: expected %v got %v", a, b)
 	}
@@ -100,6 +101,7 @@ var CapitalizeMixture = map[string]string{
 	"special_guest":         "Special_guest",
 	"applicationController": "ApplicationController",
 	"Area51Controller":      "Area51Controller",
+	"id":                    "ID",
 }
 
 var CamelToUnderscore = map[string]string{
