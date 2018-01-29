@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"path/filepath"
 	"strings"
+
+	"github.com/gobuffalo/envy"
 )
 
 // Name is a string that represents the "name" of a thing, like an app, model, etc...
@@ -130,12 +132,13 @@ func (n Name) ParamID() string {
 
 func (n Name) Package() string {
 	key := string(n)
-	src := string(filepath.Separator) + "src" + string(filepath.Separator)
-	index := strings.Index(key, src)
-	if index > 0 {
-		key = key[index+len(src):]
+
+	for _, gp := range envy.GoPaths() {
+		key = strings.TrimPrefix(key, filepath.Join(gp, "src"))
+		key = strings.TrimPrefix(key, gp)
 	}
-	key = filepath.ToSlash(key)
+	key = strings.TrimPrefix(key, string(filepath.Separator))
+
 	key = strings.Replace(key, "\\", "/", -1)
 	return key
 }
