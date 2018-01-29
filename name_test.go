@@ -157,3 +157,18 @@ func Test_Name_VarCasePlural(t *testing.T) {
 		r.Equal(tt.E, Name(tt.V).VarCasePlural())
 	}
 }
+
+func Test_Name_Package(t *testing.T) {
+	r := require.New(t)
+	table := []struct {
+		V string
+		E string
+	}{
+		{V: "admin/widget", E: "admin/widget"},
+		{V: "admin\\widget", E: "admin/widget"},
+		{V: "/users/markbates/gocode/src/github.com/markbates/inflect", E: "github.com/markbates/inflect"},
+	}
+	for _, tt := range table {
+		r.Equal(tt.E, Name(tt.V).Package())
+	}
+}

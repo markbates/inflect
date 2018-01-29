@@ -2,6 +2,7 @@ package inflect
 
 import (
 	"fmt"
+	"path/filepath"
 	"strings"
 )
 
@@ -125,4 +126,16 @@ func (n Name) Lower() string {
 // ParamID returns foo_bar_id
 func (n Name) ParamID() string {
 	return fmt.Sprintf("%s_id", strings.Replace(n.UnderSingular(), "/", "_", -1))
+}
+
+func (n Name) Package() string {
+	key := string(n)
+	src := string(filepath.Separator) + "src" + string(filepath.Separator)
+	index := strings.Index(key, src)
+	if index > 0 {
+		key = key[index+len(src):]
+	}
+	key = filepath.ToSlash(key)
+	key = strings.Replace(key, "\\", "/", -1)
+	return key
 }
