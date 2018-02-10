@@ -142,3 +142,7 @@ func (n Name) Package() string {
 	key = strings.Replace(key, "\\", "/", -1)
 	return key
 }
+
+func (n Name) Char() string {
+	return strings.ToLower(string(n[0]))
+}

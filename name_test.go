@@ -175,3 +175,10 @@ func Test_Name_Package(t *testing.T) {
 		r.Equal(tt.E, Name(tt.V).Package())
 	}
 }
+
+func Test_Name_Char(t *testing.T) {
+	r := require.New(t)
+
+	n := Name("Foo")
+	r.Equal("f", n.Char())
+}
