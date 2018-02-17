@@ -351,6 +351,17 @@ func (rs *Ruleset) isUncountable(word string) bool {
 	return false
 }
 
+//isAcronym returns if a word is acronym or not.
+func (rs *Ruleset) isAcronym(word string) bool {
+	for _, rule := range rs.acronyms {
+		if rule.suffix == word {
+			return true
+		}
+	}
+
+	return false
+}
+
 func (rs *Ruleset) PluralizeWithSize(word string, size int) string {
 	if size == 1 {
 		return rs.Singularize(word)
@@ -438,7 +449,27 @@ func (rs *Ruleset) CamelizeDownFirst(word string) string {
 // Capitalize every word in sentence "hello there" -> "Hello There"
 func (rs *Ruleset) Titleize(word string) string {
 	words := splitAtCaseChangeWithTitlecase(word)
-	return strings.Join(words, " ")
+	result := strings.Join(words, " ")
+
+	var acronymWords []string
+	for index, word := range words {
+		if len(word) == 1 {
+			acronymWords = append(acronymWords, word)
+		}
+
+		if len(word) > 1 || index == len(words)-1 || len(acronymWords) > 1 {
+			acronym := strings.Join(acronymWords, "")
+			if !rs.isAcronym(acronym) {
+				acronymWords = acronymWords[:len(acronymWords)]
+				continue
+			}
+
+			result = strings.Replace(result, strings.Join(acronymWords, " "), acronym, 1)
+			acronymWords = []string{}
+		}
+	}
+
+	return result
 }
 
 func (rs *Ruleset) safeCaseAcronyms(word string) string {
@@ -783,6 +814,7 @@ func splitAtCaseChange(s string) []string {
 func splitAtCaseChangeWithTitlecase(s string) []string {
 	words := make([]string, 0)
 	word := make([]rune, 0)
+
 	for _, c := range s {
 		spacer := isSpacerChar(c)
 		if len(word) > 0 {
@@ -799,6 +831,7 @@ func splitAtCaseChangeWithTitlecase(s string) []string {
 			}
 		}
 	}
+
 	words = append(words, string(word))
 	return words
 }
