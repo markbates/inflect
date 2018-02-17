@@ -191,16 +191,18 @@ var UnderscoreToHuman = map[string]string{
 }
 
 var MixtureToTitleCase = map[string]string{
-	"active_record":      "Active Record",
-	"ActiveRecord":       "Active Record",
-	"action web service": "Action Web Service",
-	"Action Web Service": "Action Web Service",
-	"Action web service": "Action Web Service",
-	"actionwebservice":   "Actionwebservice",
-	"Actionwebservice":   "Actionwebservice",
-	"david's code":       "David's Code",
-	"David's code":       "David's Code",
-	"david's Code":       "David's Code",
+	"active_record":       "Active Record",
+	"ActiveRecord":        "Active Record",
+	"action web service":  "Action Web Service",
+	"Action Web Service":  "Action Web Service",
+	"Action web service":  "Action Web Service",
+	"actionwebservice":    "Actionwebservice",
+	"Actionwebservice":    "Actionwebservice",
+	"david's code":        "David's Code",
+	"David's code":        "David's Code",
+	"david's Code":        "David's Code",
+	"my_cool_URL_enabled": "My Cool URL Enabled",
+	"service_API_URL":     "Service API URL",
 }
 
 var OrdinalNumbers = map[string]string{
