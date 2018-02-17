@@ -15,14 +15,17 @@ import (
 	"unicode/utf8"
 )
 
-// used by rulesets
+// baseAcronyms comes from https://en.wikipedia.org/wiki/List_of_information_technology_acronymss
+const baseAcronyms = `ACK,ACL,ADSL,AES,ANSI,API,ARP,ATM,BGP,BSS,CAT,CCITT,CHAP,CIDR,CIR,CLI,CPE,CPU,CRC,CRT,CSMA,CMOS,DCE,DEC,DES,DHCP,DNS,DRAM,DSL,DSLAM,DTE,DMI,EHA,EIA,EIGRP,EOF,ESS,FCC,FCS,FDDI,FTP,GBIC,gbps,GEPOF,HDLC,HTTP,HTTPS,IANA,ICMP,IDF,IDS,IEEE,IETF,IMAP,IP,IPS,ISDN,ISP,kbps,LACP,LAN,LAPB,LAPF,LLC,MAC,MAN,Mbps,MC,MDF,MIB,MoCA,MPLS,MTU,NAC,NAT,NBMA,NIC,NRZ,NRZI,NVRAM,OSI,OSPF,OUI,PAP,PAT,PC,PIM,PIM,PCM,PDU,POP3,POP,POST,POTS,PPP,PPTP,PTT,PVST,RADIUS,RAM,RARP,RFC,RIP,RLL,ROM,RSTP,RTP,RCP,SDLC,SFD,SFP,SLARP,SLIP,SMTP,SNA,SNAP,SNMP,SOF,SRAM,SSH,SSID,STP,SYN,TDM,TFTP,TIA,TOFU,UDP,URL,URI,USB,UTP,VC,VLAN,VLSM,VPN,W3C,WAN,WEP,WiFi,WPA,WWW`
+
+// Rule used by rulesets
 type Rule struct {
 	suffix      string
 	replacement string
 	exact       bool
 }
 
-// a Ruleset is the config of pluralization rules
+// Ruleset a Ruleset is the config of pluralization rules
 // you can extend the rules with the Add* methods
 type Ruleset struct {
 	uncountables map[string]bool
@@ -255,6 +258,12 @@ func NewDefaultRuleset() *Ruleset {
 	rs.AddUncountable("sheep")
 	rs.AddUncountable("jeans")
 	rs.AddUncountable("police")
+
+	acronyms := strings.Split(baseAcronyms, ",")
+	for _, acr := range acronyms {
+		rs.AddAcronym(acr)
+	}
+
 	return rs
 }
 
