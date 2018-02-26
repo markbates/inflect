@@ -8,6 +8,22 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func Test_Name_Camel(t *testing.T) {
+	r := require.New(t)
+	table := []struct {
+		V string
+		E string
+	}{
+		{V: "foo_bar", E: "FooBar"},
+		{V: "widget", E: "Widget"},
+		{V: "User", E: "User"},
+		{V: "user_id", E: "UserID"},
+	}
+	for _, tt := range table {
+		r.Equal(tt.E, Name(tt.V).Camel())
+	}
+}
+
 func Test_Name_ParamID(t *testing.T) {
 	r := require.New(t)
 	table := []struct {
