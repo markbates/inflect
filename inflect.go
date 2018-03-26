@@ -378,6 +378,8 @@ func (rs *Ruleset) Pluralize(word string) string {
 	if rs.isUncountable(lWord) {
 		return word
 	}
+
+	var candidate string
 	for _, rule := range rs.plurals {
 		if rule.exact {
 			if lWord == rule.suffix {
@@ -387,11 +389,20 @@ func (rs *Ruleset) Pluralize(word string) string {
 				}
 				return rule.replacement
 			}
-		} else {
-			if strings.HasSuffix(word, rule.suffix) {
-				return replaceLast(word, rule.suffix, rule.replacement)
-			}
+			continue
 		}
+
+		if strings.EqualFold(word, rule.suffix) {
+			candidate = rule.replacement
+		}
+
+		if strings.HasSuffix(word, rule.suffix) {
+			return replaceLast(word, rule.suffix, rule.replacement)
+		}
+	}
+
+	if candidate != "" {
+		return candidate
 	}
 	return word + "s"
 }
@@ -405,6 +416,9 @@ func (rs *Ruleset) Singularize(word string) string {
 	if rs.isUncountable(lWord) {
 		return word
 	}
+
+	var candidate string
+
 	for _, rule := range rs.singulars {
 		if rule.exact {
 			if lWord == rule.suffix {
@@ -414,12 +428,22 @@ func (rs *Ruleset) Singularize(word string) string {
 				}
 				return rule.replacement
 			}
-		} else {
-			if strings.HasSuffix(word, rule.suffix) {
-				return replaceLast(word, rule.suffix, rule.replacement)
-			}
+			continue
+		}
+
+		if strings.EqualFold(word, rule.suffix) {
+			candidate = rule.replacement
+		}
+
+		if strings.HasSuffix(word, rule.suffix) {
+			return replaceLast(word, rule.suffix, rule.replacement)
 		}
 	}
+
+	if candidate != "" {
+		return candidate
+	}
+
 	return word
 }
 

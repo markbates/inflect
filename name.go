@@ -77,7 +77,7 @@ func (n Name) Resource() string {
 
 // ModelPlural version of a name. ie. "user" => "Users"
 func (n Name) ModelPlural() string {
-	return Pluralize(n.Model())
+	return Camelize(Pluralize(n.Model()))
 }
 
 // File version of a name
