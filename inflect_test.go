@@ -377,7 +377,7 @@ func TestSingularizePlural(t *testing.T) {
 }
 
 func TestSingularizeSingular(t *testing.T) {
-	for singular, _ := range SingularToPlural {
+	for singular := range SingularToPlural {
 		require.Equal(t, singular, Singularize(singular))
 		require.Equal(t, Capitalize(singular), Capitalize(Singularize(singular)))
 	}
