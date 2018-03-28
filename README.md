@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/markbates/inflect.svg?branch=master)](https://travis-ci.org/markbates/inflect)
+
 #### INSTALLATION
 
 go get github.com/markbates/inflect
