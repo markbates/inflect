@@ -96,6 +96,9 @@ var CapitalizeMixture = map[string]string{
 	"applicationController": "ApplicationController",
 	"Area51Controller":      "Area51Controller",
 	"id":                    "ID",
+	"SQL":                   "SQL",
+	"sql":                   "SQL",
+	"sQL":                   "SQL",
 }
 
 var CamelToUnderscore = map[string]string{

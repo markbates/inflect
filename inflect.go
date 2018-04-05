@@ -16,7 +16,7 @@ import (
 )
 
 // baseAcronyms comes from https://en.wikipedia.org/wiki/List_of_information_technology_acronymss
-const baseAcronyms = `ACK,ACL,ADSL,AES,ANSI,API,ARP,ATM,BGP,BSS,CAT,CCITT,CHAP,CIDR,CIR,CLI,CPE,CPU,CRC,CRT,CSMA,CMOS,DCE,DEC,DES,DHCP,DNS,DRAM,DSL,DSLAM,DTE,DMI,EHA,EIA,EIGRP,EOF,ESS,FCC,FCS,FDDI,FTP,GBIC,gbps,GEPOF,HDLC,HTTP,HTTPS,IANA,ICMP,IDF,IDS,IEEE,IETF,IMAP,IP,IPS,ISDN,ISP,kbps,LACP,LAN,LAPB,LAPF,LLC,MAC,MAN,Mbps,MC,MDF,MIB,MoCA,MPLS,MTU,NAC,NAT,NBMA,NIC,NRZ,NRZI,NVRAM,OSI,OSPF,OUI,PAP,PAT,PC,PIM,PIM,PCM,PDU,POP3,POP,POST,POTS,PPP,PPTP,PTT,PVST,RADIUS,RAM,RARP,RFC,RIP,RLL,ROM,RSTP,RTP,RCP,SDLC,SFD,SFP,SLARP,SLIP,SMTP,SNA,SNAP,SNMP,SOF,SRAM,SSH,SSID,STP,SYN,TDM,TFTP,TIA,TOFU,UDP,URL,URI,USB,UTP,VC,VLAN,VLSM,VPN,W3C,WAN,WEP,WiFi,WPA,WWW`
+const baseAcronyms = `ID,UUID,SQL,ACK,ACL,ADSL,AES,ANSI,API,ARP,ATM,BGP,BSS,CAT,CCITT,CHAP,CIDR,CIR,CLI,CPE,CPU,CRC,CRT,CSMA,CMOS,DCE,DEC,DES,DHCP,DNS,DRAM,DSL,DSLAM,DTE,DMI,EHA,EIA,EIGRP,EOF,ESS,FCC,FCS,FDDI,FTP,GBIC,gbps,GEPOF,HDLC,HTTP,HTTPS,IANA,ICMP,IDF,IDS,IEEE,IETF,IMAP,IP,IPS,ISDN,ISP,kbps,LACP,LAN,LAPB,LAPF,LLC,MAC,MAN,Mbps,MC,MDF,MIB,MoCA,MPLS,MTU,NAC,NAT,NBMA,NIC,NRZ,NRZI,NVRAM,OSI,OSPF,OUI,PAP,PAT,PC,PIM,PIM,PCM,PDU,POP3,POP,POST,POTS,PPP,PPTP,PTT,PVST,RADIUS,RAM,RARP,RFC,RIP,RLL,ROM,RSTP,RTP,RCP,SDLC,SFD,SFP,SLARP,SLIP,SMTP,SNA,SNAP,SNMP,SOF,SRAM,SSH,SSID,STP,SYN,TDM,TFTP,TIA,TOFU,UDP,URL,URI,USB,UTP,VC,VLAN,VLSM,VPN,W3C,WAN,WEP,WiFi,WPA,WWW`
 
 // Rule used by rulesets
 type Rule struct {
@@ -355,7 +355,7 @@ func (rs *Ruleset) isUncountable(word string) bool {
 //isAcronym returns if a word is acronym or not.
 func (rs *Ruleset) isAcronym(word string) bool {
 	for _, rule := range rs.acronyms {
-		if rule.suffix == word {
+		if strings.ToUpper(rule.suffix) == strings.ToUpper(word) {
 			return true
 		}
 	}
@@ -387,7 +387,7 @@ func (rs *Ruleset) Pluralize(word string) string {
 			if lWord == rule.suffix {
 				// Capitalized word
 				if lWord[0] != word[0] && lWord[1:] == word[1:] {
-					return Capitalize(rule.replacement)
+					return rs.Capitalize(rule.replacement)
 				}
 				return rule.replacement
 			}
@@ -426,7 +426,7 @@ func (rs *Ruleset) Singularize(word string) string {
 			if lWord == rule.suffix {
 				// Capitalized word
 				if lWord[0] != word[0] && lWord[1:] == word[1:] {
-					return Capitalize(rule.replacement)
+					return rs.Capitalize(rule.replacement)
 				}
 				return rule.replacement
 			}
@@ -451,16 +451,16 @@ func (rs *Ruleset) Singularize(word string) string {
 
 //Capitalize uppercase first character
 func (rs *Ruleset) Capitalize(word string) string {
-	if strings.ToLower(word) == "id" {
-		return "ID"
+	if rs.isAcronym(word) {
+		return strings.ToUpper(word)
 	}
 	return strings.ToUpper(word[:1]) + word[1:]
 }
 
 //Camelize "dino_party" -> "DinoParty"
 func (rs *Ruleset) Camelize(word string) string {
-	if strings.ToLower(word) == "id" {
-		return "ID"
+	if rs.isAcronym(word) {
+		return strings.ToUpper(word)
 	}
 	words := splitAtCaseChangeWithTitlecase(word)
 	return strings.Join(words, "")
