@@ -2,10 +2,10 @@ package inflect
 
 import (
 	"fmt"
+	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
-
-	"github.com/gobuffalo/envy"
 )
 
 // Name is a string that represents the "name" of a thing, like an app, model, etc...
@@ -139,7 +139,7 @@ func (n Name) ParamID() string {
 func (n Name) Package() string {
 	key := string(n)
 
-	for _, gp := range envy.GoPaths() {
+	for _, gp := range goPaths() {
 		key = strings.TrimPrefix(key, filepath.Join(gp, "src"))
 		key = strings.TrimPrefix(key, gp)
 	}
@@ -156,4 +156,14 @@ func (n Name) Char() string {
 
 func (n Name) String() string {
 	return string(n)
+}
+
+// goPaths returns all possible GOPATHS that are set.
+// extracted from envy
+func goPaths() []string {
+	gp := os.Getenv("GOPATH")
+	if runtime.GOOS == "windows" {
+		return strings.Split(gp, ";") // Windows uses a different separator
+	}
+	return strings.Split(gp, ":")
 }
